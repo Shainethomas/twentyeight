@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>28 · Card Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="sp-h" viewBox="0 0 24 24"><path d="M12 21.2s-7.6-4.8-9.7-9.4C.4 7.9 2.3 4.2 6 4.2c2.1 0 3.4 1.2 4 2.3.6-1.1 1.9-2.3 4-2.3 3.7 0 5.6 3.7 3.7 7.6-2.1 4.6-9.7 9.4-9.7 9.4z"/></symbol>
+  <symbol id="sp-d" viewBox="0 0 24 24"><path d="M12 1.8 19.6 12 12 22.2 4.4 12z"/></symbol>
+  <symbol id="sp-s" viewBox="0 0 24 24"><path d="M12 2.2C9 5.9 3.4 8.9 3.4 13.2c0 2.5 1.9 4.4 4.3 4.4 1.3 0 2.4-.5 3-1.3-.2 2.1-1.1 3.6-2.6 4.5h7.8c-1.5-.9-2.4-2.4-2.6-4.5.6.8 1.7 1.3 3 1.3 2.4 0 4.3-1.9 4.3-4.4 0-4.3-5.6-7.3-8.6-11z"/></symbol>
+  <symbol id="sp-c" viewBox="0 0 24 24"><path d="M12 2.1a3.8 3.8 0 0 0-2.7 6.5A3.9 3.9 0 1 0 8.1 15.4c1 0 1.8-.3 2.4-.9-.2 2.8-1.1 4.7-2.6 5.9h8.2c-1.5-1.2-2.4-3.1-2.6-5.9.6.6 1.4.9 2.4.9a3.9 3.9 0 1 0-1.2-6.8A3.8 3.8 0 0 0 12 2.1z"/></symbol>
+  <symbol id="ic-coin" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" fill="url(#g-coin)"/>
+    <circle cx="12" cy="12" r="9" fill="none" stroke="#8A5F17" stroke-width="1.3"/>
+    <circle cx="12" cy="12" r="5.4" fill="none" stroke="#8A5F17" stroke-width="1.1" opacity=".75"/>
+  </symbol>
+  <symbol id="ic-stack" viewBox="0 0 24 24">
+    <ellipse cx="12" cy="18" rx="8.6" ry="3.4" fill="#8A5F17"/><ellipse cx="12" cy="15.6" rx="8.6" ry="3.4" fill="url(#g-coin)"/>
+    <ellipse cx="12" cy="12.8" rx="8.6" ry="3.4" fill="#8A5F17"/><ellipse cx="12" cy="10.6" rx="8.6" ry="3.4" fill="url(#g-coin)"/>
+    <ellipse cx="12" cy="8" rx="8.6" ry="3.4" fill="#8A5F17"/><ellipse cx="12" cy="5.8" rx="8.6" ry="3.4" fill="url(#g-coin)"/>
+  </symbol>
+  <symbol id="ic-chest" viewBox="0 0 24 24">
+    <path d="M3 11.4a9 9 0 0 1 18 0V19a1.4 1.4 0 0 1-1.4 1.4H4.4A1.4 1.4 0 0 1 3 19z" fill="url(#g-coin)"/>
+    <path d="M3 13.6h18V19a1.4 1.4 0 0 1-1.4 1.4H4.4A1.4 1.4 0 0 1 3 19z" fill="#8A5F17"/>
+    <rect x="10.4" y="12" width="3.2" height="5" rx="1" fill="#FFF3D0"/><circle cx="12" cy="14.2" r="1.1" fill="#5E3F13"/>
+  </symbol>
+  <symbol id="ic-tick" viewBox="0 0 24 24"><path d="m5 12.4 4.6 4.6L19 7" fill="none" stroke="#0F2E1E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <linearGradient id="g-coin" x1="4" y1="3" x2="19" y2="21"><stop stop-color="#FFEBB6"/><stop offset=".5" stop-color="#F0BE4C"/><stop offset="1" stop-color="#B07B1C"/></linearGradient>
+  <symbol id="ch-colonel" viewBox="0 0 100 100">
+    <path d="M6 100c2.6-17.4 14.2-26 28.4-29h31.2c14.2 3 25.8 11.6 28.4 29z" fill="#565B36"/>
+    <path d="M35 71.4 50 86.4 65 71.4l7.4 2.6L50 96.6 27.6 74z" fill="#454A2B"/>
+    <rect x="18" y="80" width="6.4" height="4.2" rx="1.2" fill="#C8323E"/>
+    <rect x="25.6" y="80" width="6.4" height="4.2" rx="1.2" fill="#D9AA57"/>
+    <rect x="18" y="86" width="6.4" height="4.2" rx="1.2" fill="#3E6FA8"/>
+    <path d="M42 59h16v14.4c0 3.2-16 3.2-16 0z" fill="#C08A5E"/>
+    <ellipse cx="50" cy="43.5" rx="19" ry="22" fill="#D8A075"/>
+    <ellipse cx="30.6" cy="45.6" rx="3.4" ry="4.6" fill="#C99060"/>
+    <ellipse cx="69.4" cy="45.6" rx="3.4" ry="4.6" fill="#C99060"/>
+    <path d="M30.8 38.6c1.2-12.4 8.8-18.2 19.2-18.2s18 5.8 19.2 18.2c-2.2-6.2-6.2-9.4-10.4-10.8-5.2-1.8-13.2-1.8-18.2.6-3.6 1.8-7.6 5.2-9.8 10.2z" fill="#CFCAC2"/>
+    <rect x="35.4" y="39.4" width="11.4" height="3.1" rx="1.55" fill="#BDB8B0"/>
+    <rect x="53.2" y="39.4" width="11.4" height="3.1" rx="1.55" fill="#BDB8B0"/>
+    <circle cx="41.4" cy="46.8" r="2.4" fill="#2A1E16"/>
+    <circle cx="58.6" cy="46.8" r="2.4" fill="#2A1E16"/>
+    <path d="M37.6 57.2c3.6-2.6 8.2-3.4 12.4-3.4s8.8.8 12.4 3.4c-3.2 1.7-7.3 2.5-12.4 2.5s-9.2-.8-12.4-2.5z" fill="#C6C1B9"/>
+    <path d="M45.2 62.6h9.6" stroke="#8A5C3C" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="ch-seth" viewBox="0 0 100 100">
+    <path d="M6 100c2.6-17.4 14.2-26 28.4-29h31.2c14.2 3 25.8 11.6 28.4 29z" fill="#EFE3C9"/>
+    <path d="M34.6 71.2 50 88.4 65.4 71.2l8.6 3c9 4 15 11.2 17 25.8H74.2L64.4 82.6V100H35.6V82.6L25.8 100H8.4c2-14.6 8-21.8 17-25.8z" fill="#2E2A33"/>
+    <path d="M50 88.6v11.4" stroke="#D9AA57" stroke-width="1.8"/>
+    <circle cx="50" cy="93.6" r="3" fill="#D9AA57"/>
+    <path d="M42 59h16v14.4c0 3.2-16 3.2-16 0z" fill="#B27B4F"/>
+    <ellipse cx="50" cy="43.5" rx="19" ry="21.6" fill="#C98B5E"/>
+    <ellipse cx="30.6" cy="45.6" rx="3.4" ry="4.6" fill="#B87C50"/>
+    <ellipse cx="69.4" cy="45.6" rx="3.4" ry="4.6" fill="#B87C50"/>
+    <path d="M31.2 47.4c-1-8.6 1.4-13.8 5-14.4-1.2 4.8-1.4 9.2-.8 13.4zM68.8 47.4c1-8.6-1.4-13.8-5-14.4 1.2 4.8 1.4 9.2.8 13.4z" fill="#3A3230"/>
+    <path d="M32.4 33.4c3.6-6.6 10-10 17.6-10s14 3.4 17.6 10c-4-3.6-9.6-5.4-17.6-5.4s-13.6 1.8-17.6 5.4z" fill="#4A413C" opacity=".5"/>
+    <g fill="none" stroke="#D9AA57" stroke-width="1.7">
+      <circle cx="41" cy="46.8" r="6.8"/><circle cx="59" cy="46.8" r="6.8"/>
+      <path d="M47.8 46.8h4.4M34.2 45.2l-3.4-1M65.8 45.2l3.4-1"/>
+    </g>
+    <circle cx="41" cy="46.8" r="2.1" fill="#2A1E16"/>
+    <circle cx="59" cy="46.8" r="2.1" fill="#2A1E16"/>
+    <path d="M41.2 57.4c2.8-1.8 5.8-2.3 8.8-2.3s6 .5 8.8 2.3c-2.4 1.2-5.5 1.8-8.8 1.8s-6.4-.6-8.8-1.8z" fill="#463A32"/>
+    <path d="M45.6 62.8h8.8" stroke="#7A5236" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="ch-shark" viewBox="0 0 100 100">
+    <path d="M6 100c2.6-17.4 14.2-26 28.4-29h31.2c14.2 3 25.8 11.6 28.4 29z" fill="#EDE7D6"/>
+    <path d="M35 71.4 50 84.4 65 71.4l4.2 1.5L50 92.4 30.8 72.9z" fill="#DBD3BC"/>
+    <path d="M65.4 71.4c9.2 2 15.6 5.8 20.4 10.8L76 100h-9.4l-5.6-21.6z" fill="#C8323E"/>
+    <path d="M66.4 77.4h17.2M64.8 84h19.4M66.6 90.6h16.4" stroke="#FBF5E7" stroke-width="2.1" opacity=".82"/>
+    <path d="M42 59h16v13.6c0 3.2-16 3.2-16 0z" fill="#96552F"/>
+    <ellipse cx="50" cy="43.5" rx="19" ry="21.6" fill="#A9673E"/>
+    <ellipse cx="30.6" cy="45.6" rx="3.4" ry="4.6" fill="#96552F"/>
+    <ellipse cx="69.4" cy="45.6" rx="3.4" ry="4.6" fill="#96552F"/>
+    <path d="M30.4 40.6c1.8-11 9.8-16.6 19.6-16.6s17.8 5.6 19.6 16.6c-2.6-5.2-5.8-7.8-9.4-8.8-1.8 2.8-4.8 3.6-7.4 2.4-2.6 3-7 3.4-10 1.6-4.2 1-8 3.2-12.4 4.8z" fill="#1E1712"/>
+    <path d="M34 51.4c2 9.2 8 14.4 16 14.4s14-5.2 16-14.4c1.4 12.4-5.6 20.6-16 20.6s-17.4-8.2-16-20.6z" fill="#6E3E22" opacity=".34"/>
+    <rect x="34.6" y="39" width="11.4" height="2.9" rx="1.45" fill="#1E1712" transform="rotate(-8 40.3 40.4)"/>
+    <rect x="54" y="38.4" width="11.4" height="2.9" rx="1.45" fill="#1E1712" transform="rotate(4 59.7 39.8)"/>
+    <circle cx="41.4" cy="46.8" r="2.4" fill="#160F0A"/>
+    <circle cx="58.6" cy="46.8" r="2.4" fill="#160F0A"/>
+    <path d="M37.2 56.8c3.8-2.8 8.4-3.6 12.8-3.6s9 .8 12.8 3.6c-3.3 1.9-7.6 2.8-12.8 2.8s-9.5-.9-12.8-2.8z" fill="#1E1712"/>
+    <path d="M45 62.4c2 1.4 8 1.4 10 0" stroke="#6E3E22" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+  </symbol>
+
+  <symbol id="ch-hotshot" viewBox="0 0 100 100">
+    <path d="M6 100c2.6-17.4 14.2-26 28.4-29h31.2c14.2 3 25.8 11.6 28.4 29z" fill="#31435A"/>
+    <path d="M34.8 71.4 50 85l15.2-13.6 5.2 1.8-9.6 12.4H44.2l-9.6-12.4z" fill="#243448"/>
+    <path d="M43.8 86.6c-1 5.2 0 9.2 1.6 13.4h9.2c1.6-4.2 2.6-8.2 1.6-13.4z" fill="#243448"/>
+    <circle cx="45.4" cy="90.4" r="1.6" fill="#D9AA57"/>
+    <circle cx="54.6" cy="90.4" r="1.6" fill="#D9AA57"/>
+    <path d="M42 59h16v13.6c0 3.2-16 3.2-16 0z" fill="#B27B4F"/>
+    <ellipse cx="50" cy="43.5" rx="18.6" ry="21.2" fill="#C58A5C"/>
+    <ellipse cx="30.8" cy="45.6" rx="3.3" ry="4.5" fill="#B27B4F"/>
+    <ellipse cx="69.2" cy="45.6" rx="3.3" ry="4.5" fill="#B27B4F"/>
+    <path d="M31.2 39.6c0-11.2 8-17.4 18.8-17.4 8.8 0 15.4 4 18.4 11.2-3.4-2.4-7.4-3.4-11.4-3-2.6 4-9 6.6-15 6.2-4 .6-8 1.2-10.8 3z" fill="#191512"/>
+    <path d="M33.4 32.6h33.2" stroke="#2A2F38" stroke-width="2.2"/>
+    <rect x="33.8" y="29.2" width="13" height="7" rx="2.6" fill="#3A414C"/>
+    <rect x="53.2" y="29.2" width="13" height="7" rx="2.6" fill="#3A414C"/>
+    <circle cx="70.8" cy="47.4" r="2.6" fill="#F2EFE8"/>
+    <path d="M36.4 42h9M54.6 42h9" stroke="#191512" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="41" cy="47.4" r="2.3" fill="#1B140E"/>
+    <circle cx="59" cy="47.4" r="2.3" fill="#1B140E"/>
+    <path d="M45 60c2 1.8 8 1.8 10 0" stroke="#8A5C3C" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  </symbol>
+
+</defs></svg>
+
+<div id="stage" class="stage">
+
+  <div class="wood"></div>
+
+  <!-- ===================== LOBBY ===================== -->
+  <section id="lobby" class="screen">
+    <div class="lobby-glow"></div>
+
+    <div class="mtop">
+      <div class="av av-xs"><div class="av-ring"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-seth"/></svg></div></div>
+      <div class="mtop-id">
+        <div class="mtop-name">Arjun</div>
+        <div class="mtop-lv"><span id="lv-num">LV 1</span><span class="xpbar"><span id="xp-fill"></span></span></div>
+      </div>
+      <div class="coins"><svg class="coin" viewBox="0 0 24 24"><use href="#ic-coin"/></svg><span id="coin-val" class="num">12,480</span></div>
+      <button class="hbtn hbtn-sm nav-rules" aria-label="Rules">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#F7C86A" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.4 5.4l1.7 1.7M16.9 16.9l1.7 1.7M18.6 5.4l-1.7 1.7M7.1 16.9l-1.7 1.7"/></svg>
+      </button>
+    </div>
+
+    <div class="crest">
+      <div class="crest-28">28</div>
+      <div class="crest-rule"><i></i><span>CARD CLUB</span><i></i></div>
+    </div>
+
+    <div class="modes">
+      <button class="mode mode-hot" data-play="offline">
+        <span class="mode-ico dark"><svg viewBox="0 0 24 24" fill="none" stroke="#3A2308" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="9" cy="12" r="1.4" fill="#3A2308" stroke="none"/><circle cx="15" cy="12" r="1.4" fill="#3A2308" stroke="none"/><path d="M9 3.4v2.4M15 3.4v2.4"/></svg></span>
+        <span class="mode-txt"><b>Play Offline</b><i>Three opponents · no internet</i></span>
+        <svg class="mode-arrow" viewBox="0 0 24 24" fill="none" stroke="#3A2308" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      </button>
+
+      <button class="mode" data-play="online">
+        <span class="mode-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#E6CE97" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2M12 3.4c2.3 2.4 3.4 5.4 3.4 8.6s-1.1 6.2-3.4 8.6c-2.3-2.4-3.4-5.4-3.4-8.6S9.7 5.8 12 3.4z"/></svg></span>
+        <span class="mode-txt"><b>Play Online</b><i>Quick match · single or multi round</i></span>
+        <svg class="mode-arrow" viewBox="0 0 24 24" fill="none" stroke="rgba(230,206,151,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+      </button>
+
+      <div class="mode-row">
+        <button class="mode mode-sq" data-go="room">
+          <span class="mode-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#E6CE97" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8.2v7.6M8.2 12h7.6"/></svg></span>
+          <span class="mode-txt"><b>Private Table</b><i>Set up a room</i></span>
+        </button>
+        <button class="mode mode-sq mode-red" data-play="tournament">
+          <span class="mode-ico red"><svg viewBox="0 0 24 24" fill="none" stroke="#E4A08A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 5.2H4.4V7a3.4 3.4 0 0 0 3 3.4M17 5.2h2.6V7a3.4 3.4 0 0 1-3 3.4"/><path d="M12 13v3.4M8.4 20h7.2l-.8-3.6H9.2z"/></svg></span>
+          <span class="mode-txt"><b>Tournament</b><i class="hot">Fixed rules · match play</i></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ROOM ===================== -->
+  <section id="room" class="screen hidden">
+    <div class="mhead">
+      <button class="hbtn nav-back" data-back="lobby" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="#F7C86A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 5-7 7 7 7"/></svg></button>
+      <div class="mhead-t"><span class="kicker">PRIVATE TABLE</span><b>Create a Room</b></div>
+    </div>
+
+    <div class="mbody">
+      <div class="panel panel-lit rowflex">
+        <div>
+          <div class="kicker">ROOM CODE</div>
+          <div id="room-code" class="roomcode num">7K4M2</div>
+        </div>
+        <div class="grow"></div>
+        <button id="room-reroll" class="iconbtn" aria-label="New code"><svg viewBox="0 0 24 24" fill="none" stroke="#E6CE97" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 12a8.4 8.4 0 0 1 14.3-6"/><path d="M20.4 12a8.4 8.4 0 0 1-14.3 6"/><path d="M18 2.6V6h-3.4M6 21.4V18h3.4"/></svg></button>
+        <button id="room-copy" class="iconbtn" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="#E6CE97" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.4"/><path d="M15 6.4V5.4A2.4 2.4 0 0 0 12.6 3H5.4A2.4 2.4 0 0 0 3 5.4v7.2A2.4 2.4 0 0 0 5.4 15h1"/></svg></button>
+      </div>
+
+      <div class="field"><div class="kicker">GAME LENGTH</div>
+        <div class="seg" data-seg="len">
+          <button class="on" data-mode="single">Single round</button>
+          <button data-mode="multi" data-t="4">Match to 4</button>
+          <button data-mode="multi" data-t="6">Match to 6</button>
+        </div>
+        <p id="len-note" class="seg-note">One hand at this table — the call settles it.</p>
+      </div>
+
+      <div class="field"><div class="kicker">ENTRY STAKE</div>
+        <div class="seg" data-seg="stake"><button>100</button><button class="on">500</button><button>2K</button><button>10K</button></div>
+      </div>
+
+      <div class="field">
+        <button class="disclose" type="button" data-panel="room-rules">
+          <span class="kicker">HOUSE RULES</span>
+          <b id="room-rules-tag" class="gold"></b>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="#E6CE97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div id="room-rules" class="panel rules-list hidden"></div>
+      </div>
+
+      <div class="field"><div class="kicker">SEATS <b class="gold">1 / 4</b></div>
+        <div class="seats4">
+          <div class="s4"><div class="av av-sm"><div class="av-ring"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-seth"/></svg></div></div><span>You</span></div>
+          <div class="s4"><div class="s4-empty">+</div><span>Invite</span></div>
+          <div class="s4"><div class="s4-empty">+</div><span>Invite</span></div>
+          <div class="s4"><div class="s4-empty">+</div><span>Add bot</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mfoot"><button class="btn-primary" data-go="invite">INVITE FRIENDS</button></div>
+  </section>
+
+  <!-- ===================== INVITE ===================== -->
+  <section id="invite" class="screen hidden">
+    <div class="mhead">
+      <button class="hbtn nav-back" data-back="room" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="#F7C86A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 5-7 7 7 7"/></svg></button>
+      <div class="mhead-t"><span class="kicker">ROOM <b id="inv-code">7K4M2</b></span><b>Invite Friends</b></div>
+      <div class="mhead-r"><b class="num">1</b><span>/4</span></div>
+    </div>
+
+    <div class="mbody">
+      <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(230,206,151,.6)" stroke-width="1.9" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.6"/><path d="m15.6 15.6 4 4"/></svg><input id="inv-search" placeholder="Search name or player ID"></div>
+      <div class="seg seg-tab" data-seg="invtab"><button class="on">Online 4</button><button>All 6</button><button>Recent 3</button></div>
+      <div id="inv-list" class="list"></div>
+    </div>
+
+    <div class="mfoot mfoot-2">
+      <button class="btn-ghost" data-go="lobby">LATER</button>
+      <button class="btn-primary" data-play="room">START WITH BOTS</button>
+    </div>
+  </section>
+
+  <!-- ===================== LEADERBOARD ===================== -->
+  <section id="ranks" class="screen hidden">
+    <div class="mhead">
+      <button class="hbtn nav-back" data-back="lobby" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="#F7C86A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 5-7 7 7 7"/></svg></button>
+      <div class="mhead-t"><span class="kicker">SEASON 6 · ENDS IN 9 DAYS</span><b>Leaderboard</b></div>
+    </div>
+
+    <div class="mbody">
+      <div class="seg seg-tab" data-seg="ranktab"><button class="on">Global</button><button>Friends</button><button>Weekly</button></div>
+
+      <div class="podium">
+        <div class="pod">
+          <div class="av av-sm"><div class="av-ring silver"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-hotshot"/></svg></div></div>
+          <b>Rohan</b><span class="num">18,420</span>
+          <div class="plinth p2">2</div>
+        </div>
+        <div class="pod">
+          <svg class="crown" viewBox="0 0 24 24"><path d="M3.4 7.4 8 11.4 12 4.6l4 6.8 4.6-4-1.6 10.4H5z" fill="#E9B94E"/></svg>
+          <div class="av"><div class="av-ring gold"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-colonel"/></svg></div></div>
+          <b>The Colonel</b><span class="num gold">21,905</span>
+          <div class="plinth p1">1</div>
+        </div>
+        <div class="pod">
+          <div class="av av-sm"><div class="av-ring bronze"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-shark"/></svg></div></div>
+          <b>Kunjappan</b><span class="num">17,880</span>
+          <div class="plinth p3">3</div>
+        </div>
+      </div>
+
+      <div id="rank-list" class="list list-tight"></div>
+    </div>
+
+    <div class="mfoot">
+      <div class="kicker" style="margin-bottom:8px">YOUR STANDING</div>
+      <div id="rank-self" class="row row-me"></div>
+    </div>
+  </section>
+
+  <!-- ===================== SHOP ===================== -->
+  <section id="shop" class="screen hidden">
+    <div class="mhead">
+      <button class="hbtn nav-back" data-back="lobby" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="#F7C86A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 5-7 7 7 7"/></svg></button>
+      <div class="mhead-t"><span class="kicker">STORE</span><b>Shop</b></div>
+      <div class="coins"><svg class="coin" viewBox="0 0 24 24"><use href="#ic-coin"/></svg><span class="coin-val num">12,480</span></div>
+    </div>
+
+    <div class="mbody">
+      <div class="seg seg-tab" data-seg="shoptab"><button class="on">Featured</button><button>Coins</button><button>Card backs</button></div>
+
+      <div class="featured">
+        <div class="feat-art">
+          <span class="cb cb-a"></span><span class="cb cb-b"></span>
+        </div>
+        <div class="feat-txt">
+          <div class="kicker hot">LIMITED · 2 DAYS LEFT</div>
+          <b>Maharaja Bundle</b>
+          <i>3 card backs · rosewood table · 25,000 coins</i>
+          <div class="price"><s>₹899</s><em>₹449</em><span class="off">−50%</span></div>
+        </div>
+      </div>
+
+      <div class="kicker mt">COIN PACKS</div>
+      <div class="grid3" id="coin-packs"></div>
+
+      <div class="kicker mt">CARD BACKS <b class="gold" id="owned-count">1 owned</b></div>
+      <div class="grid3" id="card-backs"></div>
+    </div>
+  </section>
+
+  <!-- ===================== REWARDS ===================== -->
+  <section id="rewards" class="screen hidden">
+    <div class="mhead">
+      <button class="hbtn nav-back" data-back="lobby" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="#F7C86A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 5-7 7 7 7"/></svg></button>
+      <div class="mhead-t"><span class="kicker" id="streak-lbl">DAY 1 STREAK</span><b>Daily Rewards</b></div>
+      <div class="clock"><svg viewBox="0 0 24 24" fill="none" stroke="#E6CE97" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.2 2"/></svg><span id="reward-clock" class="num">14:22:07</span></div>
+    </div>
+
+    <div class="mbody">
+      <div class="grid3" id="day-grid"></div>
+      <div class="grand">
+        <svg class="chest" viewBox="0 0 24 24"><use href="#ic-chest"/></svg>
+        <div><div class="kicker hot">DAY 7 · GRAND PRIZE</div><b>10,000 <i>+ Rosewood card back</i></b></div>
+        <div class="grand-n"><b class="num" id="days-left">6</b><span>DAYS</span></div>
+      </div>
+      <button id="claim-btn" class="btn-primary">CLAIM 200 COINS</button>
+
+      <div class="kicker mt">DAILY QUESTS</div>
+      <div id="quest-list" class="list list-tight"></div>
+    </div>
+  </section>
+
+  <!-- ===================== BOTTOM NAV ===================== -->
+  <nav id="bottomnav" class="bnav">
+    <button class="nb on" data-nav="lobby"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 10.6 12 3.8l8.4 6.8V20a1 1 0 0 1-1 1h-4.6v-6H9.2v6H4.6a1 1 0 0 1-1-1z"/></svg><span>HOME</span></button>
+    <button class="nb" data-nav="ranks"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 5.2H4.4V7a3.4 3.4 0 0 0 3 3.4M17 5.2h2.6V7a3.4 3.4 0 0 1-3 3.4"/><path d="M12 13v3.4M8.4 20h7.2l-.8-3.6H9.2z"/></svg><span>RANKS</span></button>
+    <button class="nb" data-nav="shop"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-1.3 11.2a1.6 1.6 0 0 1-1.6 1.4H6.9a1.6 1.6 0 0 1-1.6-1.4z"/><path d="M8.6 8V6.4a3.4 3.4 0 0 1 6.8 0V8"/></svg><span>SHOP</span></button>
+    <button class="nb" data-nav="rewards"><span class="nb-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8.4" width="18" height="12.2" rx="2"/><path d="M3 12.6h18M12 8.4V20.6"/><path d="M12 8.4S10.4 3.6 7.7 3.6a2.4 2.4 0 0 0 0 4.8zM12 8.4s1.6-4.8 4.3-4.8a2.4 2.4 0 0 1 0 4.8z"/></svg><em id="reward-dot" class="dot-n">1</em></span><span>REWARDS</span></button>
+    <button class="nb" data-nav="invite"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.4" r="3.6"/><path d="M2.8 20c.5-4 3.2-6.2 6.2-6.2s5.7 2.2 6.2 6.2"/><path d="M16.4 5.2a3.4 3.4 0 0 1 0 6.6M18 20c-.3-2.8-1.4-4.8-3-6"/></svg><span>FRIENDS</span></button>
+  </nav>
+
+  <!-- ===================== TRICK WON ===================== -->
+  <div id="trickwin" class="tw hidden">
+    <div class="tw-rings"><i></i><i></i></div>
+    <div id="tw-sparks" class="tw-sparks"></div>
+    <div class="tw-body">
+      <div id="tw-pts" class="tw-pts">+5</div>
+      <div id="tw-who" class="tw-who">TRICK WON</div>
+    </div>
+  </div>
+
+  <!-- ===================== TRUMP REVEAL ===================== -->
+  <div id="revealfx" class="rvx hidden">
+    <div class="rvx-dim"></div>
+    <div class="rvx-rays"></div>
+    <div class="rvx-rings"><i></i><i></i><i></i></div>
+    <div class="rvx-stage">
+      <div id="rvx-card" class="rvx-card">
+        <div class="rvx-in">
+          <div class="rvx-back back"></div>
+          <div id="rvx-face" class="card rvx-front"></div>
+        </div>
+      </div>
+    </div>
+    <div class="rvx-banner">
+      <span class="rvx-lab">TRUMP REVEALED</span>
+      <b id="rvx-suit"><svg viewBox="0 0 24 24"><use id="rvx-suit-use" href="#sp-s"/></svg><em id="rvx-suit-txt">SPADES</em></b>
+      <span id="rvx-by" class="rvx-by"></span>
+    </div>
+    <div id="rvx-burst" class="rvx-burst"></div>
+  </div>
+
+  <!-- ===================== MARRIAGE ===================== -->
+  <div id="marryfx" class="mfx hidden">
+    <div class="mfx-dim"></div>
+    <div class="mfx-body">
+      <div class="mfx-cards"><div id="mfx-k" class="card mfx-c"></div><div id="mfx-q" class="card mfx-c"></div></div>
+      <div class="mfx-lab">MARRIAGE</div>
+      <div id="mfx-line" class="mfx-line">The call comes down to 16</div>
+      <div id="mfx-by" class="mfx-by"></div>
+    </div>
+    <div id="mfx-burst" class="mfx-burst"></div>
+  </div>
+
+  <!-- ===================== TABLE ===================== -->
+  <section id="table" class="screen hidden">
+
+    <div class="topbar">
+      <button id="btn-back" class="hbtn" aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#F7C86A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 5-7 7 7 7"/></svg>
+      </button>
+      <div class="title"><span id="t-mode">Offline</span><span> · </span><b id="t-fmt">Single Round</b></div>
+      <button id="btn-settings" class="hbtn" aria-label="Rules">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#F7C86A" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.4 5.4l1.7 1.7M16.9 16.9l1.7 1.7M18.6 5.4l-1.7 1.7M7.1 16.9l-1.7 1.7"/></svg>
+      </button>
+    </div>
+
+    <div class="rail">
+      <div class="felt">
+        <div class="dash"></div>
+        <svg class="emblem" viewBox="0 0 120 120">
+          <g fill="none" stroke="#fff" stroke-width="1"><circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="31"/></g>
+          <text x="60" y="72" text-anchor="middle" fill="#fff">28</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- running match score, multi round only -->
+    <div id="matchbar" class="matchbar hidden">
+      <div class="mb-top"><span class="mb-lab">MATCH</span><span id="mb-hand" class="mb-hand">HAND 1</span></div>
+      <div class="mb-score"><b id="mb-us">0</b><span>–</span><b id="mb-them">0</b></div>
+      <div class="mb-goal">FIRST TO <b id="mb-target">6</b></div>
+    </div>
+
+    <div class="score">
+      <span class="s-lab s-call">Call Left</span><span class="s-col">:</span><span id="v-call" class="s-val">—</span>
+      <span class="s-lab">Your Points</span><span class="s-col">:</span><span id="v-us" class="s-val">0</span>
+      <span class="s-lab">Their Points</span><span class="s-col">:</span><span id="v-them" class="s-val">0</span>
+    </div>
+    <div id="marrychip" class="marrychip hidden"></div>
+
+    <!-- seats -->
+    <div class="seat seat-top" data-seat="2">
+      <span class="sname">Top</span>
+      <div class="av"><div class="av-ring"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-colonel"/></svg></div>
+        <div class="bidover hidden"></div><div class="callbadge hidden"></div><div class="caller hidden"></div></div>
+      <div class="passchip hidden">Pass</div>
+    </div>
+    <div class="seat seat-left" data-seat="1">
+      <span class="sname">Left</span>
+      <div class="av"><div class="av-ring"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-shark"/></svg></div>
+        <div class="bidover hidden"></div><div class="callbadge hidden"></div><div class="caller hidden"></div></div>
+      <div class="passchip hidden">Pass</div>
+    </div>
+    <div class="seat seat-right" data-seat="3">
+      <span class="sname">Right</span>
+      <div class="av"><div class="av-ring"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-hotshot"/></svg></div>
+        <div class="bidover hidden"></div><div class="callbadge hidden"></div><div class="caller hidden"></div></div>
+      <div class="passchip hidden">Pass</div>
+    </div>
+
+    <div id="dealer" class="dbtn">D</div>
+
+    <!-- the stock, shown while a hand is being dealt -->
+    <div id="deck" class="deck"><i class="back"></i><i class="back"></i><i class="back"></i></div>
+
+    <!-- played cards -->
+    <div id="trick" class="trick"></div>
+
+    <!-- trump: a real card, face down until somebody turns it. Once it is up
+         the card goes back to the caller's hand and the corner keeps the suit -->
+    <div id="trump" class="trump hidden">
+      <span id="trumplbl" class="trumplbl">Trump</span>
+      <div id="trump-card" class="tcard">
+        <div class="tc-in">
+          <div class="tc-back back"></div>
+          <div id="trump-face" class="card mini tc-front"></div>
+        </div>
+      </div>
+      <div id="trump-suit" class="tsuit hidden"><svg viewBox="0 0 24 24"><use id="trump-suit-use" href="#sp-s"/></svg></div>
+    </div>
+
+    <!-- status -->
+    <div id="status" class="turnpill hidden">Your Turn</div>
+
+    <!-- what you can do besides play a card -->
+    <div id="acts" class="acts hidden">
+      <button id="act-reveal" class="act act-rev hidden">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.8 12S7.4 5.6 12 5.6 20.2 12 20.2 12 16.6 18.4 12 18.4 3.8 12 3.8 12z"/><circle cx="12" cy="12" r="2.6"/></svg>
+        <span>Call Trump</span>
+      </button>
+      <button id="act-marry" class="act act-mar hidden">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.4s-7.2-4.5-7.2-9.6a4 4 0 0 1 7.2-2.4 4 4 0 0 1 7.2 2.4c0 5.1-7.2 9.6-7.2 9.6z"/></svg>
+        <span id="act-marry-txt">Marriage</span>
+      </button>
+    </div>
+
+    <!-- bidding controls -->
+    <div id="bidbar" class="bidbar hidden">
+      <button id="bid-minus" class="ctrl" aria-label="Lower">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5.4 12h13.2"/></svg>
+      </button>
+      <button id="bid-pass" class="pass">Pass</button>
+      <button id="bid-call" class="bidbtn">16</button>
+      <button id="bid-plus" class="ctrl" aria-label="Raise">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M12 5.4v13.2M5.4 12h13.2"/></svg>
+      </button>
+    </div>
+
+    <div id="hint" class="hint"></div>
+    <div id="hand" class="hand"></div>
+  </section>
+
+  <!-- ===================== RESULT ===================== -->
+  <div id="result" class="overlay hidden">
+    <div class="sheet">
+      <div id="r-kicker" class="r-kicker">ROUND OVER</div>
+      <div id="r-verdict" class="r-verdict">VICTORY</div>
+      <div id="r-line" class="r-line"></div>
+
+      <div id="r-match" class="r-match hidden">
+        <div class="rm-side"><b id="rm-us">0</b><span>YOUR PAIR</span></div>
+        <div class="rm-mid"><em id="rm-gp">+1</em><small id="rm-goal">FIRST TO 6</small></div>
+        <div class="rm-side"><b id="rm-them">0</b><span>THEM</span></div>
+      </div>
+
+      <div class="r-stats">
+        <div class="r-stat"><div id="r-us" class="r-num">0</div><div class="r-cap">YOUR POINTS</div></div>
+        <div class="r-stat"><div id="r-bid" class="r-num">0</div><div class="r-cap">THE CALL</div></div>
+        <div class="r-stat"><div id="r-them" class="r-num">0</div><div class="r-cap">THEIRS</div></div>
+      </div>
+      <div id="r-notes" class="r-notes hidden"></div>
+      <div id="r-hist" class="r-hist hidden"></div>
+      <div class="r-actions">
+        <button id="btn-lobby" class="btn-ghost">LOBBY</button>
+        <button id="btn-again" class="btn-primary">PLAY AGAIN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FORMAT PICKER ===================== -->
+  <div id="format" class="overlay hidden">
+    <div class="sheet sheet-fit">
+      <div id="fmt-kicker" class="r-kicker">OFFLINE TABLE</div>
+      <div class="fmt-title">Pick a format</div>
+
+      <div class="fmt-scroll">
+      <div class="fmt-opts">
+        <button class="fmt on" data-fmt="single">
+          <span class="fmt-mark"></span>
+          <span class="fmt-txt"><b>Single Round</b><i>One deal. Make the call or break it, and that is the game.</i></span>
+        </button>
+        <button class="fmt" data-fmt="multi">
+          <span class="fmt-mark"></span>
+          <span class="fmt-txt"><b>Multi Round</b><i>Hands keep dealing. Every call won or lost pays game points.</i></span>
+        </button>
+        <button class="fmt" data-fmt="tournament">
+          <span class="fmt-mark"></span>
+          <span class="fmt-txt"><b>Tournament</b><i>Match play under fixed rules — the table cannot change them.</i></span>
+        </button>
+      </div>
+
+      <div id="fmt-target" class="field hidden">
+        <div class="kicker">MATCH ENDS AT</div>
+        <div class="seg" data-seg="target">
+          <button data-t="4">4 points</button>
+          <button class="on" data-t="6">6 points</button>
+          <button data-t="8">8 points</button>
+        </div>
+        <p id="fmt-note" class="fmt-note"></p>
+      </div>
+
+      <div class="field">
+        <button class="disclose" type="button" data-panel="fmt-rules">
+          <span class="kicker">HOUSE RULES</span>
+          <b id="fmt-rules-tag" class="gold"></b>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="#E6CE97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div id="fmt-rules" class="panel rules-list hidden"></div>
+      </div>
+      </div>
+
+      <div class="r-actions">
+        <button id="fmt-cancel" class="btn-ghost">BACK</button>
+        <button id="fmt-start" class="btn-primary">DEAL</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MATCHMAKING ===================== -->
+  <div id="matchmake" class="overlay hidden">
+    <div class="sheet">
+      <div class="r-kicker">ONLINE MATCH</div>
+      <div id="mm-title" class="fmt-title">Finding a table…</div>
+      <div id="mm-fmt" class="mm-fmt">Single Round</div>
+
+      <div class="mm-seats">
+        <div class="mm-s in" data-sym="ch-seth"><div class="mm-slot"></div><div class="av av-sm"><div class="av-ring"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-seth"/></svg></div></div><span>You</span></div>
+        <div class="mm-s" data-sym="ch-shark"><div class="mm-slot"></div><div class="av av-sm"><div class="av-ring"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-shark"/></svg></div></div><span></span></div>
+        <div class="mm-s" data-sym="ch-colonel"><div class="mm-slot"></div><div class="av av-sm"><div class="av-ring"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-colonel"/></svg></div></div><span></span></div>
+        <div class="mm-s" data-sym="ch-hotshot"><div class="mm-slot"></div><div class="av av-sm"><div class="av-ring"></div><div class="av-in"><svg viewBox="0 0 100 100"><use href="#ch-hotshot"/></svg></div></div><span></span></div>
+      </div>
+
+      <div class="mm-bar"><i id="mm-fill"></i></div>
+      <p class="mm-note">No servers in this build — the three seats are filled by the house bots.</p>
+      <button id="mm-cancel" class="btn-ghost">CANCEL</button>
+    </div>
+  </div>
+
+  <!-- ===================== RULES ===================== -->
+  <div id="rules" class="overlay hidden">
+    <div class="sheet sheet-tall">
+      <div class="r-kicker">HOW TO PLAY</div>
+      <div class="rules-body">
+        <p><b>The deck.</b> 32 cards — J, 9, A, 10, K, Q, 8, 7 in each suit. Only the top four carry points: <b>J = 3</b>, <b>9 = 2</b>, <b>A = 1</b>, <b>10 = 1</b>. Twenty-eight points in the pack, which is where the name comes from.</p>
+        <p><b>The call.</b> Four cards are dealt to each player and bidding opens at 14. You are calling how many of those 28 points your pair will take. The rest of the pack is dealt, everyone gets one more chance to raise, and the high caller names trump by keeping a card from their hand face down.</p>
+        <p><b>The play.</b> Follow the suit that was led if you can. The highest card of the led suit takes the trick — until somebody turns the trump up, after which any trump beats any plain card.</p>
+        <p><b>Calling for trump.</b> The card the caller put down stays face down, and it is <i>out of their hand</i> — they play the hand a card short. Anybody who cannot follow the suit that was led may call for it to be lifted, and whoever asks does the lifting, so the caller never has to give themselves away. Once it is up the suit is public for the rest of the hand, the card goes back to the caller's hand, and whoever asked must play a trump to that trick if they hold one. Nobody is obliged to ask — a hand can be played right out with the trump still down, in which case it turns over on its own before the last trick.</p>
+        <p><b>Marriage.</b> The King and Queen of trump in one hand, declared only once the trump is face up. Declared by the calling pair the call comes down by four; declared from across the table it goes up by four. One declaration per pair.</p>
+        <p><b>Winning the hand.</b> If the calling pair takes at least what they called — after any marriage has moved it — they make it. Fall one point short and the other pair takes the round.</p>
+        <p><b>Single round.</b> One deal settles it. Whoever the call goes to wins the game.</p>
+        <p><b>Multi round.</b> Hands keep dealing and each one pays <b>game points</b> to one pair only — the callers if they made it, the other pair if they broke it. The bigger the call, the more it is worth: <b id="rules-ladder">14–19 pays 1 · 20–24 pays 2 · 25–28 pays 3</b>. First pair to the match target takes the whole thing, so a match always ends on a call won or a call lost.</p>
+        <div id="rules-active" class="rules-active hidden">
+          <div class="kicker">THIS TABLE</div>
+          <div id="rules-active-list"></div>
+        </div>
+      </div>
+      <button id="btn-rules-close" class="btn-primary">GOT IT</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/rules.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/match.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/screens.js"></script>
+</body>
+</html>

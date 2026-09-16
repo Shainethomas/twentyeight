@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+  <style>
+    body { margin: 0; font-family: Manrope, "Avenir Next", "Segoe UI", sans-serif; }
+    a { color: #D9AA57; } a:hover { color: #F6E3B0; }
+    .mo * { box-sizing: border-box; }
+    .kicker { font: 700 10px/1 Manrope, sans-serif; letter-spacing: .22em; color: rgba(243,228,196,.55); }
+    .num { font-variant-numeric: tabular-nums; }
+    .goldtext {
+      background: linear-gradient(178deg, #FFF6DA 0%, #D9AA57 40%, #A9761F 72%, #FFF1CB 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .panel {
+      border-radius: 20px; padding: 24px 26px;
+      background: linear-gradient(180deg, rgba(44,24,12,.72), rgba(18,10,5,.82));
+      border: 1px solid rgba(217,170,87,.2);
+    }
+    .h2 { font: 700 20px/1 Cinzel, Georgia, serif; color: #F6EBD1; letter-spacing: .02em; }
+    .sub { font: 500 12px/1.5 Manrope, sans-serif; color: rgba(243,228,196,.45); margin-top: 7px; max-width: 64ch; }
+    .name { font: 700 13px/1.2 Manrope, sans-serif; color: #F0E2C2; }
+    .spec { font: 500 10.5px/1.5 Manrope, sans-serif; color: rgba(243,228,196,.38); margin-top: 6px; }
+    .stage {
+      position: relative; height: 138px; border-radius: 14px; overflow: hidden;
+      background: radial-gradient(80% 70% at 50% 20%, #3A2010, #170C05);
+      border: 1px solid rgba(217,170,87,.16);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mini {
+      width: 44px; height: 62px; border-radius: 5px; position: relative;
+      background: linear-gradient(158deg, #FFFDF6, #FBF5E7 46%, #EFE3CB);
+      box-shadow: 0 5px 12px rgba(0,0,0,.55), 0 0 0 1px rgba(90,60,25,.28);
+    }
+    .miniback {
+      width: 44px; height: 62px; border-radius: 5px;
+      background: repeating-linear-gradient(45deg, rgba(255,235,190,.1) 0 3px, rgba(0,0,0,0) 3px 6px), radial-gradient(75% 65% at 50% 30%, #8E2233, #56121F 60%, #310A12);
+      box-shadow: 0 5px 12px rgba(0,0,0,.55), inset 0 0 0 1px rgba(246,227,176,.34);
+    }
+
+    @keyframes m-deal { 0% { opacity: 0; transform: translate(0,-92px) rotate(-26deg) scale(.68); } 60%,100% { opacity: 1; transform: translate(var(--tx),0) rotate(var(--tr)) scale(1); } }
+    .deal { position: absolute; animation: m-deal 2.6s cubic-bezier(.2,.9,.25,1) infinite; }
+
+    @keyframes m-flip { 0%,14% { transform: rotateY(0deg); } 50%,100% { transform: rotateY(180deg); } }
+    .flipwrap { width: 44px; height: 62px; perspective: 520px; }
+    .flipper { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: m-flip 2.4s cubic-bezier(.5,0,.3,1) infinite; }
+    .face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 5px; }
+    .face-b { transform: rotateY(180deg); }
+
+    @keyframes m-lift {
+      0%,40% { transform: translateY(0); box-shadow: 0 5px 12px rgba(0,0,0,.55), 0 0 0 1px rgba(90,60,25,.28); }
+      60%,100% { transform: translateY(-22px); box-shadow: 0 14px 24px rgba(0,0,0,.6), 0 0 0 2px #D9AA57, 0 0 20px rgba(217,170,87,.55); }
+    }
+    .lift { animation: m-lift 2s cubic-bezier(.22,1,.3,1) infinite alternate; }
+
+    @keyframes m-sweep { 0%,55% { left: -60%; } 100% { left: 130%; } }
+    .cta {
+      position: relative; overflow: hidden; padding: 13px 28px; border-radius: 14px;
+      font: 800 12px/1 Manrope, sans-serif; letter-spacing: .14em; color: #2C1705;
+      background: linear-gradient(180deg,#FFE9B4,#D9AA57 42%,#A8741F);
+      box-shadow: 0 8px 20px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.65);
+    }
+    .cta::after {
+      content: ""; position: absolute; top: 0; left: -60%; width: 42%; height: 100%;
+      background: linear-gradient(100deg, rgba(255,255,255,0), rgba(255,255,255,.7), rgba(255,255,255,0));
+      animation: m-sweep 2.6s ease-in-out infinite;
+    }
+
+    @keyframes m-spin { to { transform: rotate(1turn); } }
+    .ring {
+      position: relative; width: 58px; height: 58px; border-radius: 50%;
+      background: radial-gradient(80% 70% at 50% 20%, #A8623A, #5E2E1B 70%, #38180E);
+    }
+    .ring::before {
+      content: ""; position: absolute; inset: -7px; border-radius: 50%;
+      background: conic-gradient(#D9AA57 0turn .72turn, rgba(0,0,0,0) .72turn 1turn);
+      -webkit-mask: radial-gradient(circle, transparent 0 27px, #000 27.6px);
+      mask: radial-gradient(circle, transparent 0 27px, #000 27.6px);
+      animation: m-spin 5.5s linear infinite;
+    }
+
+    @keyframes m-burst { 0% { opacity: 0; transform: translate(0,0) scale(.2); } 12% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(1); } }
+    @keyframes m-ring { 0% { opacity: .9; transform: translate(-50%,-50%) scale(.3); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(1.8); } }
+    .spark { position: absolute; left: 50%; top: 50%; border-radius: 50%; }
+
+    @keyframes m-rise { 0% { opacity: 0; transform: translateY(64px); } 46%,100% { opacity: 1; transform: translateY(0); } }
+    .sheet {
+      position: absolute; left: 14px; right: 14px; bottom: 0; height: 76px; border-radius: 16px 16px 0 0;
+      background: linear-gradient(180deg, rgba(52,29,14,.97), rgba(17,9,4,.99));
+      border-top: 1px solid rgba(217,170,87,.4); box-shadow: 0 -12px 30px rgba(0,0,0,.7);
+      animation: m-rise 2.6s cubic-bezier(.2,.9,.25,1) infinite;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    @keyframes m-count { 0%,100% { transform: translateY(0); } 46% { transform: translateY(-32px); } }
+    .tick { animation: m-count 2.2s cubic-bezier(.5,0,.3,1) infinite; }
+
+    @keyframes m-stamp { 0% { opacity: 0; transform: scale(1.6); filter: blur(7px); } 34% { opacity: 1; transform: scale(.95); filter: blur(0); } 46%,100% { transform: scale(1); } }
+    .stamp { animation: m-stamp 2.8s cubic-bezier(.2,.9,.25,1) infinite; }
+
+    @keyframes m-shake { 0%,72%,100% { transform: translateX(0); } 76% { transform: translateX(-6px); } 80% { transform: translateX(6px); } 84% { transform: translateX(-4px); } 88% { transform: translateX(4px); } 92% { transform: translateX(-2px); } }
+    .shake { animation: m-shake 2.4s ease-in-out infinite; }
+
+    .curve { display: flex; align-items: baseline; gap: 12px; padding: 11px 0; border-bottom: 1px solid rgba(217,170,87,.12); }
+    .curvename { width: 132px; font: 700 11px/1.3 Manrope, sans-serif; color: #E9D9B4; flex-shrink: 0; }
+    .curveval { font: 500 10.5px/1.45 Manrope, sans-serif; color: rgba(243,228,196,.4); }
+  </style>
+</helmet>
+
+<div class="mo" style="width: 1240px; padding: 56px 56px 64px;
+     background: radial-gradient(90% 42% at 22% 0%, #4A2A15 0%, #24140A 44%, #120A05 100%);">
+
+  <div style="padding-bottom: 26px; border-bottom: 1px solid rgba(217,170,87,.25);">
+    <div class="kicker">DESIGN SYSTEM · MOTION</div>
+    <div style="font: 700 27px/1.15 Cinzel, Georgia, serif; color: #F6EBD1; margin-top: 10px;">Motion Specification</div>
+    <div class="sub">Every tile below runs its real timing — what you see is the spec. Two rules govern all of it: nothing animates unless it marks a state change, and only one continuous loop runs on screen at a time — the active-turn ring, or the primary CTA sweep, never both.</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; margin-top: 32px;">
+
+    <div>
+      <div class="stage">
+        <div class="deal mini" style="--tx: -46px; --tr: -9deg; animation-delay: 0s;"></div>
+        <div class="deal mini" style="--tx: -15px; --tr: -3deg; animation-delay: .09s;"></div>
+        <div class="deal mini" style="--tx: 15px;  --tr: 3deg;  animation-delay: .18s;"></div>
+        <div class="deal mini" style="--tx: 46px;  --tr: 9deg;  animation-delay: .27s;"></div>
+      </div>
+      <div class="name" style="margin-top: 12px;">Deal</div>
+      <div class="spec">500ms · <span style="color:#E9D9B4">ease-settle</span><br>60ms stagger, 8 cards<br>from deck origin, −24° → 0°</div>
+    </div>
+
+    <div>
+      <div class="stage">
+        <div class="flipwrap"><div class="flipper">
+          <div class="face miniback"></div>
+          <div class="face face-b mini"></div>
+        </div></div>
+      </div>
+      <div class="name" style="margin-top: 12px;">Flip</div>
+      <div class="spec">340ms · <span style="color:#E9D9B4">ease-swap</span><br>rotateY 0→180°, perspective 520px<br>trump reveal, card-back preview</div>
+    </div>
+
+    <div>
+      <div class="stage"><div class="mini lift"></div></div>
+      <div class="name" style="margin-top: 12px;">Select / lift</div>
+      <div class="spec">180ms · <span style="color:#E9D9B4">ease-snap</span><br>translateY −26px + gold ring<br>the only hover state on mobile</div>
+    </div>
+
+    <div>
+      <div class="stage"><div class="cta">YOUR TURN</div></div>
+      <div class="name" style="margin-top: 12px;">Specular sweep</div>
+      <div class="spec">2.6s loop · ease-in-out<br>45%-wide highlight, 55% dwell<br>primary CTA and turn pill only</div>
+    </div>
+
+    <div>
+      <div class="stage"><div class="ring"></div></div>
+      <div class="name" style="margin-top: 12px;">Turn ring</div>
+      <div class="spec">5.5s linear · infinite<br>conic sweep 0→.72turn, masked<br>doubles as the turn timer</div>
+    </div>
+
+    <div>
+      <div class="stage">
+        <div style="position: relative; width: 100%; height: 100%;">
+          <div style="position: absolute; left: 50%; top: 50%; width: 92px; height: 92px; border-radius: 50%; border: 1.5px solid rgba(246,227,176,.5); animation: m-ring 1.9s ease-out infinite;"></div>
+          <div style="position: absolute; left: 50%; top: 50%; width: 92px; height: 92px; border-radius: 50%; border: 1px solid rgba(246,227,176,.3); animation: m-ring 1.9s ease-out .55s infinite;"></div>
+          <sc-for list="{{sparks}}" as="s" hint-placeholder-count="18"><i class="spark" style="{{s.style}}"></i></sc-for>
+        </div>
+      </div>
+      <div class="name" style="margin-top: 12px;">Trick burst</div>
+      <div class="spec">1.5–2.6s · ease-out, staggered<br>26 particles, 74–158px radius<br>two expanding rings behind</div>
+    </div>
+
+    <div>
+      <div class="stage"><div class="sheet"><span class="kicker" style="font-size: 8.5px;">BID SHEET</span></div></div>
+      <div class="name" style="margin-top: 12px;">Sheet rise</div>
+      <div class="spec">380ms · <span style="color:#E9D9B4">ease-settle</span><br>translateY 64px → 0, opacity 0→1<br>scrim fades 0→60% over 240ms</div>
+    </div>
+
+    <div>
+      <div class="stage">
+        <div style="height: 32px; overflow: hidden; text-align: center;">
+          <div class="tick">
+            <div class="num goldtext" style="font: 700 30px/32px Cinzel, Georgia, serif;">14</div>
+            <div class="num goldtext" style="font: 700 30px/32px Cinzel, Georgia, serif;">19</div>
+          </div>
+        </div>
+      </div>
+      <div class="name" style="margin-top: 12px;">Score roll</div>
+      <div class="spec">420ms · <span style="color:#E9D9B4">ease-swap</span><br>digit column slides one row<br>tabular numerals, no reflow</div>
+    </div>
+
+    <div>
+      <div class="stage">
+        <div class="stamp goldtext" style="font: 700 32px/1 Cinzel, Georgia, serif; letter-spacing: .04em;">VICTORY</div>
+      </div>
+      <div class="name" style="margin-top: 12px;">Verdict stamp</div>
+      <div class="spec">620ms · <span style="color:#E9D9B4">ease-settle</span><br>scale 1.6→.95→1, blur 7→0<br>confetti begins at 300ms</div>
+    </div>
+
+    <div>
+      <div class="stage"><div class="shake mini" style="filter: grayscale(.5) brightness(.7);"></div></div>
+      <div class="name" style="margin-top: 12px;">Illegal play</div>
+      <div class="spec">240ms · ease-in-out<br>±6px decaying shake, no colour flash<br>card returns to rest</div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 26px; margin-top: 34px;">
+    <div class="panel" style="flex-grow: 1;">
+      <div class="h2">Easing tokens</div>
+      <div class="sub">Four curves cover the product. If an interaction seems to need a fifth, it belongs to one of these.</div>
+      <div style="margin-top: 18px;">
+        <div class="curve"><span class="curvename">ease-settle</span><span class="curveval">cubic-bezier(.2,.9,.25,1) — things arriving: deals, sheets, rows, stamps</span></div>
+        <div class="curve"><span class="curvename">ease-snap</span><span class="curveval">cubic-bezier(.22,1,.3,1) — direct response to touch: lift, press, toggle</span></div>
+        <div class="curve"><span class="curvename">ease-swap</span><span class="curveval">cubic-bezier(.5,0,.3,1) — one state replacing another: flip, score roll</span></div>
+        <div class="curve" style="border-bottom: 0;"><span class="curvename">linear</span><span class="curveval">continuous loops only: turn ring, progress fills</span></div>
+      </div>
+    </div>
+
+    <div class="panel" style="flex-grow: 1;">
+      <div class="h2">Duration scale</div>
+      <div class="sub">Anything the player caused resolves under 250ms. Anything the game narrates may take longer.</div>
+      <div style="margin-top: 18px;">
+        <div class="curve"><span class="curvename">instant · 120ms</span><span class="curveval">press, toggle knob, tab swap</span></div>
+        <div class="curve"><span class="curvename">quick · 180–240ms</span><span class="curveval">card lift, illegal shake, chip select</span></div>
+        <div class="curve"><span class="curvename">normal · 340–420ms</span><span class="curveval">flip, sheet rise, score roll, row cascade</span></div>
+        <div class="curve"><span class="curvename">narrative · 500–900ms</span><span class="curveval">deal sequence, trick collect, verdict stamp</span></div>
+        <div class="curve" style="border-bottom: 0;"><span class="curvename">ambient · 2–6s</span><span class="curveval">sweep, turn ring, crest bob, reward breathe</span></div>
+      </div>
+      <div class="spec" style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(217,170,87,.12);">
+        <span style="color:#E9D9B4">Reduced motion:</span> ambient loops stop, the deal collapses to a 120ms fade-in, and particle bursts become a single 200ms gold flash on the winning pile. Nothing becomes unreadable and no state is lost.
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview": {"width":1240,"height":1060}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tones = ['#FFF3D0', '#D9AA57', '#F0BE4C', '#FFE9B4'];
+    const rnd = (i, k) => { const x = Math.sin((i + 1) * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); };
+
+    const sparks = Array.from({ length: 18 }, (_, i) => {
+      const a = (i / 18) * Math.PI * 2 + rnd(i, 1) * 0.5;
+      const dist = 34 + rnd(i, 2) * 30;
+      const size = 2.2 + rnd(i, 3) * 3.4;
+      const tone = tones[i % tones.length];
+      return {
+        style: 'width:' + size.toFixed(1) + 'px;height:' + size.toFixed(1) + 'px;background:' + tone +
+               ';box-shadow:0 0 ' + (size * 2.4).toFixed(1) + 'px ' + tone +
+               ';--dx:' + (Math.cos(a) * dist).toFixed(1) + 'px;--dy:' + (Math.sin(a) * dist).toFixed(1) + 'px' +
+               ';animation:m-burst ' + (1.5 + rnd(i, 4) * 1.1).toFixed(2) + 's ease-out ' + (rnd(i, 5) * 1.6).toFixed(2) + 's infinite'
+      };
+    });
+
+    return { sparks };
+  }
+}
+</script>
+</body>
+</html>
